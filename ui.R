@@ -7,25 +7,64 @@
 
 library(shiny)
 
-shinyUI(fluidPage(
+# tagList(
+# 
+#     navbarPage(
+# 
+#   # Application title
+#   tabPanel("Forward Calculator",
+# 
+#   # Sidebar with a slider input for number of bins
+# 
+#     sidebarPanel(
 
-  # Application title
-  titlePanel("Forward Calculator"),
+#         
+# 
+#     ),
+# 
+#     # Show a plot of the generated distribution
+#     mainPanel(
+#         hr(),
+#         fluidRow(column(3, verbatimTextOutput("fwd")))
+#     )
+# 
+#   ),
+#   tabPanel("Tab 2", "This panel is intentionally left blank"),
+#   tabPanel("Tab 3", "This panel is intentionally left blank")
+# ))
+ tagList(
+        navbarPage(
+            # theme = "cerulean",  # <--- To use a theme, uncomment this
+            "Derivative Calculators",
+            tabPanel("Fwd Calculator",
+                         column(3,
+                         actionButton("calcFwd", "Reveal"),
+                                 numericInput("rate", label = h3("r (continuous)"), value = .05),
+                                 numericInput("tFwd", label = h3("T"), value = .25),
+                                 numericInput("spot", label = h3("S0"), value = 40.0)
+                         ),
 
-  # Sidebar with a slider input for number of bins
-  sidebarLayout(
-    sidebarPanel(
-        numericInput("rate", label = h3("rate (continuous)"), value = .05),
-        numericInput("tFwd", label = h3("foward expiration (in years)"), value = .25),
-        numericInput("spot", label = h3("Spot Index"), value = 40.0)
-        
-
-    ),
-
-    # Show a plot of the generated distribution
-    mainPanel(
-        hr(),
-        fluidRow(column(3, verbatimTextOutput("fwd")))
+               #     ),
+                     h4(fluidRow(
+                         column(3, textOutput("fwd"))
+                     ))
+            ),
+            tabPanel("Fwd Reval",                         
+                     column(3,
+                            actionButton("reval", "Reveal"),
+                            numericInput("k", label = h3("K"), value = 40.503), 
+                            numericInput("rate3", label = h3("r(T1) (continuous)"), value = .06),
+                            numericInput("tFwd3", label = h3("T1"), value = .15),
+                            numericInput("spot3", label = h3("S(T1)"), value = 38.0)
+            ),
+            
+            #     ),
+            h4(fluidRow(
+                column(3, textOutput("fwd2")),
+                column(3, textOutput("k2"))
+            ))
+            )
+            #tabPanel("Navbar 3", "This panel is intentionally left blank")
+        )
     )
-  )
-))
+
